@@ -3,7 +3,10 @@ import 'package:flutter/material.dart';
 import 'spotify_screen.dart';
 
 class ProfileScreen extends StatefulWidget {
-  const ProfileScreen({super.key});
+  const ProfileScreen({super.key, this.showBottomNavigation = true, this.onBack});
+
+  final bool showBottomNavigation;
+  final VoidCallback? onBack;
 
   @override
   State<ProfileScreen> createState() => _ProfileScreenState();
@@ -50,7 +53,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
         elevation: 0,
         centerTitle: true,
         title: const Text('s.bhandari__', style: TextStyle(fontWeight: FontWeight.w700, fontSize: 18)),
-        leading: IconButton(tooltip: 'Back', onPressed: () {}, icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 22)),
+        leading: IconButton(tooltip: 'Back', onPressed: widget.onBack ?? () {}, icon: const Icon(Icons.arrow_back_ios_new_rounded, size: 22)),
         actions: [
           IconButton(
             tooltip: 'Open Spotify',
@@ -82,7 +85,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
             ),
         ],
       ),
-      bottomNavigationBar: _bottomNavigationBar(),
+      bottomNavigationBar: widget.showBottomNavigation ? _bottomNavigationBar() : null,
     );
   }
 

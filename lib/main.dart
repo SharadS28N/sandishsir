@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
-import 'profile_screen.dart';
+import 'app_shell.dart';
+import 'sign_in_screen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -23,7 +24,23 @@ class MyApp extends StatelessWidget {
         ),
         fontFamily: 'Roboto',
       ),
-      home: const ProfileScreen(),
+      home: const EntryScreen(),
     );
+  }
+}
+
+class EntryScreen extends StatefulWidget {
+  const EntryScreen({super.key});
+
+  @override
+  State<EntryScreen> createState() => _EntryScreenState();
+}
+
+class _EntryScreenState extends State<EntryScreen> {
+  bool _signedIn = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return _signedIn ? const AppShell() : SignInScreen(onSignedIn: () => setState(() => _signedIn = true));
   }
 }

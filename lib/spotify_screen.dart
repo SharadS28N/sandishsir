@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class SpotifyScreen extends StatefulWidget {
-	const SpotifyScreen({super.key});
+	const SpotifyScreen({super.key, this.showBottomNavigation = true});
+
+	final bool showBottomNavigation;
 
 	@override
 	State<SpotifyScreen> createState() => _SpotifyScreenState();
@@ -12,16 +14,16 @@ class _SpotifyScreenState extends State<SpotifyScreen> {
 	int? _playing;
 
 	final _playlists = const [
-		['Liked Songs', 'https://picsum.photos/seed/liked/300'],
-		['Daily Mix 1', 'https://picsum.photos/seed/mix/300'],
-		['Discover Weekly', 'https://picsum.photos/seed/discover/300'],
-		['Release Radar', 'https://picsum.photos/seed/radar/300'],
+		['Liked Songs', 'assets/images/My Pictures/IMG-20250820-WA0021.jpg'],
+		['Daily Mix 1', 'assets/images/My Pictures/IMG-20250820-WA0005.jpg'],
+		['Discover Weekly', 'assets/images/My Pictures/IMG-20250820-WA0003.jpg'],
+		['Release Radar', 'assets/images/My Pictures/IMG-20250820-WA0001.jpg'],
 	];
 
 	final _albums = const [
-		['Daily Mix 1', 'Taylor Swift, Dua Lipa, and more', 'https://picsum.photos/seed/mix1/500'],
-		['Daily Mix 2', 'The Weeknd, Drake, and more', 'https://picsum.photos/seed/mix2/500'],
-		['Chill Hits', 'Kick back to the best new music.', 'https://picsum.photos/seed/chill/500'],
+		['Daily Mix 1', 'Taylor Swift, Dua Lipa, and more', 'assets/images/My Pictures/IMG-20250330-WA0023.jpg'],
+		['Daily Mix 2', 'The Weeknd, Drake, and more', 'assets/images/My Pictures/DSC01699.jpg'],
+		['Chill Hits', 'Kick back to the best new music.', 'assets/images/My Pictures/IMG-20250820-WA0013.jpg'],
 	];
 
 	@override
@@ -39,7 +41,7 @@ class _SpotifyScreenState extends State<SpotifyScreen> {
 					const SliverToBoxAdapter(child: SizedBox(height: 24)),
 				]),
 			),
-			bottomNavigationBar: BottomNavigationBar(
+			bottomNavigationBar: widget.showBottomNavigation ? BottomNavigationBar(
 				backgroundColor: const Color(0xff121212),
 				type: BottomNavigationBarType.fixed,
 				currentIndex: _tab,
@@ -51,7 +53,7 @@ class _SpotifyScreenState extends State<SpotifyScreen> {
 					BottomNavigationBarItem(icon: Icon(Icons.search), label: 'Search'),
 					BottomNavigationBarItem(icon: Icon(Icons.library_music), label: 'Your Library'),
 				],
-			),
+			) : null,
 		);
 	}
 
@@ -79,7 +81,7 @@ class _SpotifyScreenState extends State<SpotifyScreen> {
 							child: InkWell(
 								onTap: () {},
 								child: Row(children: [
-									Image.network(item[1], width: 54, height: 54, fit: BoxFit.cover),
+									Image.asset(item[1], width: 54, height: 54, fit: BoxFit.cover),
 									const SizedBox(width: 10),
 									Expanded(child: Text(item[0], style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w600), overflow: TextOverflow.ellipsis)),
 								]),
@@ -104,7 +106,7 @@ class _SpotifyScreenState extends State<SpotifyScreen> {
 						width: 165,
 						margin: const EdgeInsets.only(right: 16),
 						child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-							ClipRRect(borderRadius: BorderRadius.circular(6), child: Image.network(_albums[index][2], width: 165, height: 165, fit: BoxFit.cover)),
+											ClipRRect(borderRadius: BorderRadius.circular(6), child: Image.asset(_albums[index][2], width: 165, height: 165, fit: BoxFit.cover)),
 							const SizedBox(height: 10),
 							Text(_albums[index][0], style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
 							const SizedBox(height: 5),
@@ -127,7 +129,7 @@ class _SpotifyScreenState extends State<SpotifyScreen> {
 							margin: const EdgeInsets.only(right: 14),
 							child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
 								Stack(alignment: Alignment.center, children: [
-									ClipRRect(borderRadius: BorderRadius.circular(5), child: Image.network(_playlists[index][1], width: 130, height: 130, fit: BoxFit.cover)),
+									ClipRRect(borderRadius: BorderRadius.circular(5), child: Image.asset(_playlists[index][1], width: 130, height: 130, fit: BoxFit.cover)),
 									if (_playing == index) const CircleAvatar(backgroundColor: Colors.white, child: Icon(Icons.pause, color: Colors.black)),
 								]),
 								const SizedBox(height: 9),

@@ -10,16 +10,28 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:classwork/main.dart';
 
 void main() {
-  testWidgets('profile screen renders and toggles follow state', (WidgetTester tester) async {
+  testWidgets('sign in opens the multi-screen demo shell', (WidgetTester tester) async {
     await tester.pumpWidget(const MyApp());
 
-    expect(find.text('s.bhandari__'), findsOneWidget);
-    expect(find.text('Sharad Bhandari'), findsOneWidget);
-    expect(find.text('Follow'), findsOneWidget);
+    expect(find.text('Sign In'), findsOneWidget);
+    expect(find.text('Log In'), findsOneWidget);
 
-    await tester.tap(find.text('Follow'));
+    await tester.tap(find.text('Log In'));
     await tester.pump();
 
-    expect(find.text('Following'), findsOneWidget);
+    expect(find.text('Instagram'), findsNWidgets(2));
+    expect(find.text('s.bhandari__'), findsNothing);
+
+    await tester.tap(find.byTooltip('Open profile'));
+    await tester.pump();
+    expect(find.text('Sharad Bhandari'), findsOneWidget);
+
+    await tester.tap(find.text('Spotify'));
+    await tester.pump();
+    expect(find.text('Good evening'), findsOneWidget);
+
+    await tester.tap(find.text('Card'));
+    await tester.pump();
+    expect(find.text('Simple and easy to use app.'), findsOneWidget);
   });
 }
